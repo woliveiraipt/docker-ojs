@@ -1,5 +1,8 @@
 # How to migrate to the last OJS version
 
+| **WARNING:** This documentation is still partial and not up to date. Use at your own risk. |
+|:------------------------------------------------------------------------------------------:|
+
 ## Get the source
 
 ```bash
@@ -64,6 +67,7 @@ mysqldump -u root --password=MYSQL_ROOT_PASSWORD OJS_DB --single-transaction --q
 ```bash
 chown 100:101 /dojo/sites/journalName/volumes -R
 chown 999:999 /dojo/sites/journalName/volumes/db -R
+chown 999:999 /dojo/sites/journalName/volumes/logs/db -R
 ```
 
 ## Set you journal
