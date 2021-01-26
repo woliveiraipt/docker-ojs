@@ -65,7 +65,7 @@ you can start an OJS stack (web app + database containers) with a single command
     - **Database driver**: `mysqli` (or "mysql" if your php is lower than 7.3)
     - **Host**: `db` (which is the name of the container in the internal Docker network)
     - **Username**: `ojs`
-    - **Password**: `ojsPwd`
+    - **Password**: `ojs`
     - **Database name**: `ojs`
     - _Uncheck_ "Create new database"
     - _Uncheck_ "Beacon"
