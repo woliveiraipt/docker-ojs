@@ -10,26 +10,6 @@ networks:
   inside:
     external: false
 
-volumes:
-  storage-db:
-   driver: local
-   driver_opts:
-     type: none
-     o: bind
-     device: ${PWD}/volumes/db
-  storage-public:
-   driver: local
-   driver_opts:
-     type: none
-     o: bind
-     device: ${PWD}/volumes/public
-  storage-private:
-   driver: local
-   driver_opts:
-     type: none
-     o: bind
-     device: ${PWD}/volumes/private
-
 services:
   db:
     image: mariadb:10.2
@@ -42,10 +22,10 @@ services:
       MYSQL_USER: "${MYSQL_USER:-ojs}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD:-ojsPwd}"
 #    volumes:
-#      - storage-db:/var/lib/mysql
-#      - ./volumes/logs/db:/var/log/mysql
-#      - ./volumes/config/db.charset.conf:/etc/mysql/conf.d/charset.cnf
-#      - ./volumes/migration:/docker-entrypoint-initdb.d
+#      - ${PWD}/volumes/db:/var/lib/mysql
+#      - ${PWD}/volumes/logs/db:/var/log/mysql
+#      - ${PWD}/volumes/config/db.charset.conf:/etc/mysql/conf.d/charset.cnf
+#      - ${PWD}/volumes/migration:/docker-entrypoint-initdb.d
     networks:
       - inside
     restart: always
@@ -62,12 +42,13 @@ services:
       - "${HTTPS_PORT:-443}:443"
 #    volumes:
 #      - /etc/localtime:/etc/localtime
-#      - storage-private:/var/www/private
-#      - storage-public:/var/www/html/public
-#      - ./volumes/logs/app:/var/log/apache2
-#      - ./volumes/config/ojs.config.inc.php:/var/www/html/config.inc.php
-#      - ./volumes/config/apache.htaccess:/var/www/html/.htaccess
-#      - ./volumes/config/php.custom.ini:/usr/local/etc/php/conf.d/custom.ini
+#      - ${PWD}/volumes/private:/var/www/private
+#      - ${PWD}/volumes/public:/var/www/html/public
+#      - ${PWD}/volumes/logs/app:/var/log/apache2
+#      # WARNING: You can only enable file-volumes if file exists in the container.
+#      - ${PWD}/volumes/config/ojs.config.inc.php:/var/www/html/config.inc.php
+#      - ${PWD}/volumes/config/apache.htaccess:/var/www/html/.htaccess
+#      - ${PWD}/volumes/php.custom.ini:/usr/local/etc/php/conf.d/custom.ini
 
     networks:
       - inside
