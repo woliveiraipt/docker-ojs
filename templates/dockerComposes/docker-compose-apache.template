@@ -42,7 +42,7 @@ services:
       - "${HTTPS_PORT:-443}:443"
 #    volumes:
 #      - /etc/localtime:/etc/localtime
-#      - ${PWD}/volumes/private:/var/www/private
+#      - ${PWD}/volumes/private:/var/www/files
 #      - ${PWD}/volumes/public:/var/www/html/public
 #      - ${PWD}/volumes/logs/app:/var/log/apache2
 #      # WARNING: You can only enable file-volumes if file exists in the container.

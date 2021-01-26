@@ -39,40 +39,42 @@ you can start an OJS stack (web app + database containers) with a single command
 1. Clone this repository in your machine (if you don't like git, [download](https://github.com/pkp/docker-ojs/archive/master.zip) and unzip it):
 
     ```bash
-	$ https://github.com/pkp/docker-ojs.git
+    $ https://github.com/pkp/docker-ojs.git
     ```
 
 2. Go to the directory of your OJS version of your choice:
     ```bash
     $ cd versions/3_2_0-1/alpine/apache/php73
     ```
-	| **TIP: Map your config** |
-	|:-----------------------------------------------------------------------------------|
-	| In production sites you would like to change the default configuration. <br /> The recommended way is uncommenting the environment variable sections in your docker-compose.yml and set the [environment variables](#environment-variables) properly. |
-	| More info at ["Easy way to change config stuff"](#easy-way-to-change-config-stuff) |
+    | **TIP: Map your config** |
+    |:-----------------------------------------------------------------------------------|
+    | In production sites you would like to change the default configuration. <br /> The recommended way is uncommenting the environment variable sections in your docker-compose.yml and set the [environment variables](#environment-variables) properly. |
+    | More info at ["Easy way to change config stuff"](#easy-way-to-change-config-stuff) |
 
 3. Run the stack:
     ```bash
     $ docker-compose up
     ```
 
-	Docker-compose will pull images from docker Hub and do all the hard work to rise a functional OJS stack.
+    Docker-compose will pull images from docker Hub and do all the hard work to rise a functional OJS stack.
 
 4. Access **http://127.0.0.1:8080** and continue through web installation process.
 
-	Note that the database connection needs the following options:
+    Note that the database connection needs the following options:
 
-	- **Database driver**: `mysqli` (or "mysql" if your php is lower than 7.3)
-	- **Host**: `db` (which is the name of the container in the internal Docker network)
-	- **Username**: `ojs`
-	- **Password**: `ojsPwd`
-	- **Database name**: `ojs`
-	- _Uncheck_ "Create new database"
-	- _Uncheck_ "Beacon"
+    - **Database driver**: `mysqli` (or "mysql" if your php is lower than 7.3)
+    - **Host**: `db` (which is the name of the container in the internal Docker network)
+    - **Username**: `ojs`
+    - **Password**: `ojsPwd`
+    - **Database name**: `ojs`
+    - _Uncheck_ "Create new database"
+    - _Uncheck_ "Beacon"
 
-	| **TIP:**             |
-	|:---------------------|
-	| To go through the OJS installation process automatically, set the environment variable `OJS_CLI_INSTALL=1`, and use the other .env variables to automatize the process. |
+    And the  "Directory for uploads:" acording to your docker-compose "/var/www/files"
+
+    | **TIP:**             |
+    |:---------------------|
+    | To go through the OJS installation process automatically, set the environment variable `OJS_CLI_INSTALL=1`, and use the other .env variables to automatize the process. |
 
 ## Building local images
 
@@ -85,16 +87,16 @@ This is useful if you don't want external dependencies or you like to modify our
 To do this...
 
 1. Go to your prefered version folder and and build the image as follows:
-	```bash
-	$ docker build -t local/ojs:3_2_0-2 .
-	```
+    ```bash
+    $ docker build -t local/ojs:3_2_0-2 .
+    ```
 
-	If something goes wrong, double-check if you ran the former command with the right version number or in a folder without the local Dockerfile.
+    If something goes wrong, double-check if you ran the former command with the right version number or in a folder without the local Dockerfile.
 
 2. Once the image is built, you can run the stack locally telling compose to use the local yaml file with the `-f`/`--file` option as follows:
-	```bash
-	$ docker-compose --file docker-compose-local.yml up
-	```
+    ```bash
+    $ docker-compose --file docker-compose-local.yml up
+    ```
 
 ## Versions
 
@@ -137,22 +139,30 @@ When you run the docker-compose it will mount the volumes with persistent
 data and will let you share files from your host with the container.
 
 
-| Host									| Container	| Volume								| Description					|
-|:--------------------------------------|:---------:|:--------------------------------------|:------------------------------|
-| ./volumes/public						| ojs		| /var/www/html/public					| All public files				|
-| ./volumes/private						| ojs		| /srv/files							| All private files (uploads)	|
-| ./volumes/config/db.charset.conf 		| db		| /etc/mysql/conf.d/charset.cnf			| mariaDB config file 			|
-| ./volumes/config/ojs.config.inc.php	| ojs		| /var/www/html/config.inc.php			| OJS config file				|
-| ./volumes/config/php.custom.ini		| ojs		| /usr/local/etc/php/conf.d/custom.ini	| PHP custom.init				|
-| ./volumes/config/apache.htaccess		| ojs		| /var/www/html/.htaccess				| Apache2 htaccess				|
-| ./volumes/logs/app					| ojs		| /var/log/apache2						| Apache2 Logs					|
-| ./volumes/logs/db 					| db 		| /var/log/mysql 						| mariaDB Logs 					|
-| ./volumes/db							| db		| /var/lib/mysql						| mariaDB database content 		|
-| ./volumes/migration 					| db		| /docker-entrypoint-initdb.d			| DB init folder (with SQLs)	|
-| /etc/localtime						| ojs 		| /etc/localtime						| Sync clock with the host one.	|
-| TBD									| ojs		| /etc/ssl/apache2/server.pem			| SSL **crt** certificate		|
-| TBD									| ojs		| /etc/ssl/apache2/server.key			| SSL **key** certificate		|
+| Host                                    | Container  | Volume                                | Description                    |
+|:----------------------------------------|:----------:|:--------------------------------------|:-------------------------------|
+| ./volumes/public                        | ojs        | /var/www/html/public                  | All public files               |
+| ./volumes/private                       | ojs        | /var/www/files                        | All private files (uploads)    |
+| ./volumes/config/db.charset.conf        | db         | /etc/mysql/conf.d/charset.cnf         | mariaDB config file            |
+| ./volumes/config/ojs.config.inc.php     | ojs        | /var/www/html/config.inc.php          | OJS config file                |
+| ./volumes/config/php.custom.ini         | ojs        | /usr/local/etc/php/conf.d/custom.ini  | PHP custom.init                |
+| ./volumes/config/apache.htaccess        | ojs        | /var/www/html/.htaccess               | Apache2 htaccess               |
+| ./volumes/logs/app                      | ojs        | /var/log/apache2                      | Apache2 Logs                   |
+| ./volumes/logs/db                       | db         | /var/log/mysql                        | mariaDB Logs                   |
+| ./volumes/db                            | db         | /var/lib/mysql                        | mariaDB database content       |
+| ./volumes/migration                     | db         | /docker-entrypoint-initdb.d           | DB init folder (with SQLs)     |
+| /etc/localtime                          | ojs        | /etc/localtime                        | Sync clock with the host one.  |
+| TBD                                     | ojs        | /etc/ssl/apache2/server.pem           | SSL **crt** certificate        |
+| TBD                                     | ojs        | /etc/ssl/apache2/server.key           | SSL **key** certificate        |
 
+In this image we use "bind volumes" with relative paths because it will 
+give you a clear view where your data is stored.
+
+The down sides of those volumes is they can not be "named" and docker will 
+store them with an absolute path (that it’s annoying to make stuff portable) 
+but I prefer better control about where data is stored than leave it in docker hands.
+
+This is just an image, so feel free to modify to fit your needs.
 
 You can add your own volumes. For instance, make sense for a plugin developer
 or a themer to create a volume with his/her work, to keep a persistent copy in
@@ -161,6 +171,22 @@ the host of the new plugin or theme.
 An alternative way of working for developers is working with his/her own local
 Dockerfile that will be build to pull the plugin for his/her own repository...
 but this will be significantly slower than the volume method.
+
+Last but not least, those storage folders need to exist with the right permissions
+before you run your docker-compose or it will fail.
+
+To be sure your volumes have the right permissions, you can run those commands:
+
+   ```bash
+   $ chown 100:101 ./volumes -R
+   $ chown 999:999 ./volumes/db -R
+   $ chown 999:999 ./volumes/logs/db -R
+   ```
+
+In other words... all the content inside volumes will be owned by apache2 user
+and group (uid 100 and gid 101 inside the container), execpt for db and logs/db
+folders that will be owned by mysql user and group (uid and gid 999).
+
 
 ## Upgrading OJS
 
@@ -172,9 +198,9 @@ The update process is easy and straightforward.
    ```
 2. **Set the new version** in docker-compose.yml.
 
- 	Replace the old version: ```image: pkpofficial/ojs:2_4_5-2```
+     Replace the old version: ```image: pkpofficial/ojs:2_4_5-2```
 
-	with the new one:        ```image: pkpofficial/ojs:3_2_0-2```
+    with the new one:        ```image: pkpofficial/ojs:3_2_0-2```
 
 3. **Start the container** with the new OJS version. It will pull a new image of your OJS scripts.
    ```bash
@@ -285,24 +311,24 @@ you know docker and nginx so... ¿how could you contribute?
 2. Create the required files and folders in the templates folder.
 
   Basically you will need:
-	- A Dockerfile template for each php version you publish (ie: dockerfile-alpine-nginx-php73.template)
-	- A generic docker-compose.yml template (templates/dockerComposes/docker-compose-nginx.template)
-	- A folder with all the specific configurations (templates/webServers/nginx/php73/root)
-	- Extend exclude.list with the stuff you want to be removed.
+    - A Dockerfile template for each php version you publish (ie: dockerfile-alpine-nginx-php73.template)
+    - A generic docker-compose.yml template (templates/dockerComposes/docker-compose-nginx.template)
+    - A folder with all the specific configurations (templates/webServers/nginx/php73/root)
+    - Extend exclude.list with the stuff you want to be removed.
 
   This is the hard work. Take apache as a reference and contact us if you need indications.
 
 3. Edit build.sh to add your version to the proper variables.
-	For the nginx exemple (over alpine) it should be enough extending the webServers array:
-	```
-	webServers=(  'apache' 'nginx' )
-	```
-	Modify the script if you need it to be smarter.
+    For the nginx exemple (over alpine) it should be enough extending the webServers array:
+    ```
+    webServers=(  'apache' 'nginx' )
+    ```
+    Modify the script if you need it to be smarter.
 
 4. Run build script to generate all versions again:
-	```bash
-	$ ./build.sh
-	```
+    ```bash
+    $ ./build.sh
+    ```
 
 5. Test your work running docker-compose with local dockerfiles.
 
