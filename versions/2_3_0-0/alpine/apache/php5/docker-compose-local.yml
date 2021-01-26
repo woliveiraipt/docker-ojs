@@ -10,6 +10,26 @@ networks:
   inside:
     external: false
 
+volumes:
+  storage-db:
+   driver: local
+   driver_opts:
+     type: none
+     o: bind
+     device: ${PWD}/volumes/db
+  storage-public:
+   driver: local
+   driver_opts:
+     type: none
+     o: bind
+     device: ${PWD}/volumes/public
+  storage-private:
+   driver: local
+   driver_opts:
+     type: none
+     o: bind
+     device: ${PWD}/volumes/private
+
 services:
   db:
     image: mariadb:10.2
@@ -22,7 +42,7 @@ services:
       MYSQL_USER: "${MYSQL_USER:-ojs}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD:-ojsPwd}"
 #    volumes:
-#      - ./volumes/db:/var/lib/mysql
+#      - storage-db:/var/lib/mysql
 #      - ./volumes/logs/db:/var/log/mysql
 #      - ./volumes/config/db.charset.conf:/etc/mysql/conf.d/charset.cnf
 #      - ./volumes/migration:/docker-entrypoint-initdb.d
@@ -42,8 +62,8 @@ services:
       - "${HTTPS_PORT:-443}:443"
 #    volumes:
 #      - /etc/localtime:/etc/localtime
-#      - ./volumes/private:/srv/files
-#      - ./volumes/public:/var/www/html/public
+#      - storage-private:/var/www/private
+#      - storage-public:/var/www/html/public
 #      - ./volumes/logs/app:/var/log/apache2
 #      - ./volumes/config/ojs.config.inc.php:/var/www/html/config.inc.php
 #      - ./volumes/config/apache.htaccess:/var/www/html/.htaccess
