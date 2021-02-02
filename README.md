@@ -310,25 +310,28 @@ you know docker and nginx so... ¿how could you contribute?
 1. Be sure the version number is in the versions.list file (ie: 3_2_1-0).
 2. Create the required files and folders in the templates folder.
 
-  Basically you will need:
-    - A Dockerfile template for each php version you publish (ie: dockerfile-alpine-nginx-php73.template)
-    - A generic docker-compose.yml template (templates/dockerComposes/docker-compose-nginx.template)
-    - A folder with all the specific configurations (templates/webServers/nginx/php73/root)
-    - Extend exclude.list with the stuff you want to be removed.
+   Basically you will need:
 
-  This is the hard work. Take apache as a reference and contact us if you need indications.
+   - A Dockerfile template for each php version you publish (ie: dockerfile-alpine-nginx-php73.template)
+   - A generic docker-compose.yml template (templates/dockerComposes/docker-compose-nginx.template)
+   - A folder with all the specific configurations (templates/webServers/nginx/php73/root)
+   - Extend exclude.list with the stuff you want to be removed.
+
+   This is the hard work. Take apache as a reference and contact us if you need indications.
 
 3. Edit build.sh to add your version to the proper variables.
-    For the nginx exemple (over alpine) it should be enough extending the webServers array:
-    ```
-    webServers=(  'apache' 'nginx' )
-    ```
-    Modify the script if you need it to be smarter.
+
+   For the nginx exemple (over alpine) it should be enough extending the webServers array:
+   ```
+   webServers=(  'apache' 'nginx' )
+   ```
+   Modify the script if you need it to be smarter.
 
 4. Run build script to generate all versions again:
-    ```bash
-    $ ./build.sh
-    ```
+
+   ```bash
+   $ ./build.sh
+   ```
 
 5. Test your work running docker-compose with local dockerfiles.
 
