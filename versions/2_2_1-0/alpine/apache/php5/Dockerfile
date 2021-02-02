@@ -32,6 +32,7 @@ ENV PACKAGES 		\
 	curl 			\
 	ttf-freefont	\
 	dcron 			\
+	patch			\
 	php5			\
 	php5-cli		\
 	php5-apache2	\

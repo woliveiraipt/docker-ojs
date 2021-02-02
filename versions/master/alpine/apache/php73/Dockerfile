@@ -32,6 +32,7 @@ ENV PACKAGES 		\
 	curl 			\
 	ttf-freefont	\
 	dcron 			\
+	patch			\
 	php7			\
 	php7-apache2	\
 	runit 			\
