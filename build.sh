@@ -186,7 +186,7 @@ for ojs in "${ojsVersions[@]}"; do
 						[[ " ${php72[@]} " =~ " ${ojs} " ]] && build=1
 					;;
 					php73 )
-					    [[ " ${php73[@]} " =~ " ${ojs} " ]] && build=1
+					        [[ " ${php73[@]} " =~ " ${ojs} " ]] && build=1
 					;;
 				esac
 
@@ -254,6 +254,13 @@ for ojs in "${ojsVersions[@]}"; do
 							"versions/$ojsNum/$os/$server/$php/docker-compose-local.yml" -a
 						sed -i "s!pkpofficial/ojs:!local/ojs:!g" \
 							"versions/$ojsNum/$os/$server/$php/docker-compose-local.yml"
+
+						# Setting a link with a non versioned folder with the last avaliable php version
+	                                        if [[ -d "templates/webServers/$server/php" ]]; then
+							unlink "templates/webServers/$server/php"
+						fi
+						ln -s "templates/webServers/$server/php" php
+
 						printf "BUILT:    $ojsNum: [$server] $php (over $os)\n"
 					else
 						printf "\nERROR when building $ojs: [$server] $php (over $os)\n"
