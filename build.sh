@@ -256,10 +256,10 @@ for ojs in "${ojsVersions[@]}"; do
 							"versions/$ojsNum/$os/$server/$php/docker-compose-local.yml"
 
 						# Setting a link with a non versioned folder with the last avaliable php version
-	                                        if [[ -d "templates/webServers/$server/php" ]]; then
-							unlink "templates/webServers/$server/php"
+	                                        if [[ -d "versions/$ojsNum/$os/$server/php" ]]; then
+							unlink "versions/$ojsNum/$os/$server/php"
 						fi
-						ln -s "templates/webServers/$server/php" php
+						ln -s "$php" "versions/$ojsNum/$os/$server/php"
 
 						printf "BUILT:    $ojsNum: [$server] $php (over $os)\n"
 					else
