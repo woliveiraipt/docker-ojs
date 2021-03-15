@@ -3,7 +3,7 @@
 
 | **IMPORTANT:** |
 |:---------------------------------------------------------|
-| **This repository is still beta, so it can't be used in production environments.** <br />We are actively working to release a stable version soon. Keep tuned. |
+| **This repository is still beta, so it should be used with care in production settings - please provide feedback early and often about your experience.** <br />We are actively working to release a stable version soon. Keep tuned. |
 
 
 Open Journal Systems (OJS) is a journal management and publishing system that has been developed by the [Public Knowledge Project](https://pkp.sfu.ca/) through its federally funded efforts to expand and improve access to research.
@@ -65,7 +65,7 @@ you can start an OJS stack (web app + database containers) with a single command
     - **Database driver**: `mysqli` (or "mysql" if your php is lower than 7.3)
     - **Host**: `db` (which is the name of the container in the internal Docker network)
     - **Username**: `ojs`
-    - **Password**: `ojs`
+    - **Password**: `ojsPwd`
     - **Database name**: `ojs`
     - _Uncheck_ "Create new database"
     - _Uncheck_ "Beacon"
@@ -88,7 +88,7 @@ To do this...
 
 1. Go to your prefered version folder and and build the image as follows:
     ```bash
-    $ docker build -t local/ojs:3_2_0-2 .
+    $ docker build -t local/ojs:3_2_1-4 .
     ```
 
     If something goes wrong, double-check if you ran the former command with the right version number or in a folder without the local Dockerfile.
@@ -119,7 +119,7 @@ The image undestand the following environment variables:
 | OJS_CLI_INSTALL | 0         | Used to install ojs automatically when start container |
 | OJS_DB_HOST     | db        | Database host        |
 | OJS_DB_USER     | ojs       | Database             |
-| OJS_DB_PASSWORD | ojs       | Database password    |
+| OJS_DB_PASSWORD | ojsPwd    | Database password    |
 | OJS_DB_NAME     | ojs       | Database name        |
 
 _**Note:** OJS_CLI_INSTALL and certificate features are underconstruction._
