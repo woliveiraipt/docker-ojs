@@ -188,6 +188,27 @@ and group (uid 100 and gid 101 inside the container), execpt for db and logs/db
 folders that will be owned by mysql user and group (uid and gid 999).
 
 
+## Built in scripts
+
+The Dockerfile includes some scritps at "/usr/local/bin" to facilitate common opperations:
+
+| Script               | Container  | Description                                                                                                   |
+|:---------------------|:----------:|:--------------------------------------------------------------------------------------------------------------|
+| ojs-run-scheduled    | ojs        | Runs "php tools/runScheduledTasks.php". Called by cron every hour.                                            |
+| ojs-cli-install      | ojs        | Uses curl to call the ojs install using pre-defined variables.                                                |
+| ojs-pre-start        | ojs        | Enforces some config variables and generates a self-signed cert based on ServerName.                          |
+| ojs-upgrade          | ojs        | Runs "php tools/upgrade.php upgrade". (issue when config.inc.php is a volume)                                 |
+| ojs-variable         | ojs        | Replaces the variable value in config.inc.php (ie: ojs-variable variable newValue)                            |
+| ojs-migrate          | ojs        | Takes a dump.sql, public and private files from "migration" folder and builds and builds a docker site (beta) |
+
+Some of those scripts are still beta, you be careful when you use them.
+
+You can call the scripts outside the container as follows:
+
+   ```bash
+   $ docker exec -it ojs_app_journalname /usr/local/bin/ojs-variable session_check_ip Off
+   ```
+
 ## Upgrading OJS
 
 The update process is easy and straightforward.
@@ -200,7 +221,7 @@ The update process is easy and straightforward.
 
      Replace the old version: ```image: pkpofficial/ojs:2_4_5-2```
 
-    with the new one:        ```image: pkpofficial/ojs:3_2_0-2```
+     with the new one:        ```image: pkpofficial/ojs:3_2_1-4```
 
 3. **Start the container** with the new OJS version. It will pull a new image of your OJS scripts.
    ```bash
@@ -216,6 +237,11 @@ The update process is easy and straightforward.
    | Use grep to filter as follows: `$ docker ps -a | grep ojs_app` |
 
 Before the upgrade you will like to [diff](https://linux.die.net/man/1/diff) your `config.inc.php` with the version of the new OJS version to learn about new configuration variables. Be specialy carefully with the charsets.
+
+   | **WARNING:** May I upgrade directly to the last OJS stable version?                                             |
+   |:----------------------------------------------------------------------------------------------------------------|
+   | It depends on your initial version. The recommended upgrade route is:<br/> **2.x > 2.4.8-5 > 3.1.2-4 > 3.2.1-4 > 3.3.x-x** |
+
 
 ## Apache2
 
