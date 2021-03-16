@@ -31,7 +31,7 @@ services:
     restart: always
 
   ojs:
-    image: local/ojs:master
+    image: local/ojs:main
 #    env_file:
 #      - .env
     container_name: "ojs_app_${COMPOSE_PROJECT_NAME:-demo}"
