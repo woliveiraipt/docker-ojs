@@ -67,6 +67,7 @@ phpVersions=( 'php5' 'php7' 'php73' )
 
 # PHP support for each ojs version:
 php5=(  'ojs-2_0_0-0' \
+		'ojs-stable-2_4_8' \
 		'ojs-2_0_1-0' \
 		'ojs-2_0_2-0' \
 		'ojs-2_0_2-1' \
@@ -143,6 +144,8 @@ php7=(  'ojs-3_0a1' \
 
 php73=( 'main'  \
 		'latest' \
+		'stable-3_2_1' \
+		'stable-3_3_1' \
 		'3_3_0-6' \
 		'3_3_0-5' \
 		'3_3_0-4' \
