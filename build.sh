@@ -14,7 +14,7 @@
 #  REQUIREMENTS:  mapfile
 #     TODO/BUGS:  ---
 #         NOTES:  ---
-#        AUTHOR:  Dulip Withanage, David Cormier, Marc Bria.
+#       AUTHORS:  Dulip Withanage, David Cormier, Marc Bria.
 #  ORGANIZATION:  Public Knowledge Project (PKP)
 #       LICENSE:  GPL 3
 #       CREATED:  04/02/2020 23:50:15 CEST
@@ -146,6 +146,7 @@ php73=( 'main'  \
 		'latest' \
 		'stable-3_2_1' \
 		'stable-3_3_1' \
+		'3_3_0-7' \
 		'3_3_0-6' \
 		'3_3_0-5' \
 		'3_3_0-4' \
