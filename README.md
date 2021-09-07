@@ -31,7 +31,7 @@ Then wait till the containers are built and click in the 8080 port link to get a
 ## How to use
 
 If you want to run it locally (or in your own server), first you need to install
-docker ([docker-compose](https://docs.docker.com/compose/) is also recommeneded).
+docker ([docker-compose](https://docs.docker.com/compose/) is also recommended).
 
 For all available versions, we provide a **docker-compose** configuration file so
 you can start an OJS stack (web app + database containers) with a single command.
