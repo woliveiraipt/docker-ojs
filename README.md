@@ -21,7 +21,7 @@ Just click the following link and create a user:
 
 [![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/pkp/docker-ojs/master/versions/3_2_0-2/alpine/apache/php73/docker-compose.yml)
 
-Then wait till the containers are built and click in the 8080 port link to get a fresh clean demo with the last stable ojs version.
+Then wait till the containers are built and click in the 8081 port link to get a fresh clean demo with the last stable ojs version.
 
 | **TIP: Old versions on PWD **                                             |
 |:--------------------------------------------------------------------------|
