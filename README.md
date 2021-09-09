@@ -294,6 +294,11 @@ The certificate can be overwritten using a volume mount (see `docker-compose.yml
 
 _**Note:** This feature is under reveiw and could change in future._
 
+### SSL handled by an external service
+
+If you have an external service in front handling SSL connections (often referred as
+*SSL offloading* or *SSL termination*) you need to add a new line containing
+`PassENV HTTPS` in `ojs.conf`, inside the main `<VirtualHost *:80>` section.
 
 # How could I help?
 
